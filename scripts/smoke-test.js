@@ -160,6 +160,38 @@ async function asyncChecks() {
   );
   console.log("ok   generate assembles args and cleans output");
 
+  const bareArgsFile = path.join(
+    fs.mkdtempSync(path.join(os.tmpdir(), "opencode-args-")),
+    "args.txt",
+  );
+  process.env.OPENCODE_ARGS_FILE = bareArgsFile;
+  const bareBin = makeFakeBin(
+    '#!/bin/sh\nprintf "%s" "$*" > "$OPENCODE_ARGS_FILE"\ncat > /dev/null\nprintf "chore: bare\\n"\n',
+  );
+  await generate({
+    config: {
+      get: (key, fallback) => {
+        if (key === "command") return bareBin;
+        if (key === "args") return ["run", "--archived"];
+        if (key === "timeoutSeconds") return 5;
+        return fallback;
+      },
+    },
+    root: os.tmpdir(),
+    prompt: "p",
+  });
+  assert.equal(
+    fs.readFileSync(bareArgsFile, "utf8"),
+    "run --archived",
+  );
+  console.log("ok   generate omits --agent/--model when unset");
+
+  const manifest = require("../package.json");
+  const properties = manifest.contributes.configuration.properties;
+  assert.equal(properties["opencodeCommit.agent"].default, "");
+  assert.equal(properties["opencodeCommit.model"].default, "");
+  console.log("ok   default config relies on opencode's own agent and model");
+
   const emptyBin = makeFakeBin("#!/bin/sh\ncat > /dev/null\n");
   await assert.rejects(
     generate({

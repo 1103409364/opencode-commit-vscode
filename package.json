@@ -71,8 +71,8 @@
         },
         "opencodeCommit.agent": {
           "type": "string",
-          "default": "commit-msg",
-          "markdownDescription": "Agent passed with `--agent`. Leave empty to use the default agent. The repository ships `.opencode/agents/commit-msg.md`."
+          "default": "",
+          "markdownDescription": "Agent passed with `--agent`. Empty uses opencode's default agent. To use the bundled prompt, copy `.opencode/agents/commit-msg.md` from this repository into the repository you commit in and set this to `commit-msg`."
         },
         "opencodeCommit.model": {
           "type": "string",
