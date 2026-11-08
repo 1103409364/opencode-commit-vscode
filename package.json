@@ -1,0 +1,103 @@
+{
+  "name": "opencode-commit-message",
+  "displayName": "OpenCode Commit Message",
+  "description": "Generate Git commit messages with the opencode CLI instead of GitHub Copilot.",
+  "version": "0.1.0",
+  "publisher": "opencode",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["SCM Providers", "Other"],
+  "main": "./extension.js",
+  "activationEvents": [],
+  "scripts": {
+    "test": "node scripts/smoke-test.js",
+    "package": "vsce package"
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "opencodeCommit.generate",
+        "title": "Generate Commit Message (opencode)",
+        "category": "OpenCode",
+        "icon": "$(sparkle)"
+      }
+    ],
+    "menus": {
+      "scm/title": [
+        {
+          "command": "opencodeCommit.generate",
+          "when": "scmProvider == git",
+          "group": "navigation@1"
+        }
+      ],
+      "scm/inputBox": [
+        {
+          "command": "opencodeCommit.generate",
+          "when": "scmProvider == git"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "opencodeCommit.generate",
+        "key": "ctrl+alt+g",
+        "mac": "cmd+alt+g",
+        "when": "scmProvider == git"
+      }
+    ],
+    "configuration": {
+      "title": "OpenCode Commit Message",
+      "properties": {
+        "opencodeCommit.command": {
+          "type": "string",
+          "default": "opencode",
+          "markdownDescription": "Path to the `opencode` executable. Use an absolute path when VS Code cannot find it on `PATH` (common when VS Code is launched from a desktop launcher)."
+        },
+        "opencodeCommit.args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": ["run", "--archived"],
+          "markdownDescription": "Arguments placed before the model and agent flags. Use `[\"run\"]` for opencode versions without `--archived`."
+        },
+        "opencodeCommit.agent": {
+          "type": "string",
+          "default": "commit-msg",
+          "markdownDescription": "Agent passed with `--agent`. Leave empty to use the default agent. The repository ships `.opencode/agents/commit-msg.md`."
+        },
+        "opencodeCommit.model": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Optional model passed with `--model`, for example `google/gemini-3.8-flash`. Leave empty to use the default model."
+        },
+        "opencodeCommit.instructions": {
+          "type": "string",
+          "default": "",
+          "editPresentation": "multilineText",
+          "markdownDescription": "Extra instructions appended to the prompt, for example a preferred language or a stricter subject length."
+        },
+        "opencodeCommit.maxDiffChars": {
+          "type": "number",
+          "default": 60000,
+          "minimum": 1000,
+          "description": "Maximum number of diff characters sent to the model. Larger diffs are truncated."
+        },
+        "opencodeCommit.timeoutSeconds": {
+          "type": "number",
+          "default": 120,
+          "minimum": 5,
+          "description": "Abort generation after this many seconds."
+        }
+      }
+    }
+  }
+}
