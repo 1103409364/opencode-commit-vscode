@@ -59,7 +59,21 @@ OpenCode 2.2.6 允许您通过编辑 `opencode.jsonc` 配置文件来配置自�
     //       }
     //     }
     //   }
-    // }
+    // },
+    // gemini 代理
+    // "gemini-proxy": {
+    //   "name": "Gemini Proxy",
+    //   // "env": ["GEMINI_PROXY_API_KEY"],
+    //   "package": "@opencode/ai/providers/google",
+    //   "settings": {
+    //     "baseURL": "https://gemini.xxx/v1beta",
+    //     "apiKey": "xxxx",
+    //   },
+    //   "models": {
+    //     "gemini-2.5-flash": { "name": "Gemini 2.5 Flash" },
+    //     "gemini-3.8-flash": { "name": "Gemini 3.8 Flash" },
+    //   },
+    // },    
   },
 }
 ```
