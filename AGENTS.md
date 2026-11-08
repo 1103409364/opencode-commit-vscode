@@ -23,7 +23,7 @@ npm run package          # runs `vsce` from PATH; vsce is NOT a dependency
 
 - After editing `extension.js`, re-run `./install.sh` and then `Developer: Reload Window`. The install dir is version-keyed, so a version bump leaves the old copy behind.
 - `npm run package` fails unless `vsce` is installed globally (`npm i -g @vscode/vsce`) or invoked as `npx @vscode/vsce package`.
-- `install.sh` copies only `package.json`, `extension.js`, `README.md`; `scripts/` is excluded via `.vscodeignore` and must not be added to the copy list.
+- `install.sh` copies only `package.json`, `extension.js`, `README.md`; `scripts/` is excluded via `.vscodeignore` and must not be added to the copy list. `.vscodeignore` also keeps `AGENTS.md`, `install.sh` and `*.vsix` out of the packaged VSIX.
 
 ## Testing quirks
 

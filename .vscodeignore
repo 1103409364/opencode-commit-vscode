@@ -1,4 +1,5 @@
 scripts/**
 install.sh
 .vscodeignore
+AGENTS.md
 *.vsix
