@@ -45,7 +45,7 @@ code --install-extension opencode-commit-message-0.1.0.vsix
 | `opencodeCommit.command` | `opencode` | 可执行文件路径。GUI 启动的 VS Code 常常找不到 `~/.opencode/bin`，这时填绝对路径。 |
 | `opencodeCommit.args` | `["run", "--archived"]` | 模型/agent 参数之前的基础参数。老版本 opencode 没有 `--archived` 时改成 `["run"]`。 |
 | `opencodeCommit.agent` | *(空)* | `--agent` 的值。留空用 opencode 自己的默认 agent（推荐，任何仓库都能用）。想用仓库内的提示词模板，把 `.opencode/agents/commit-msg.md` 复制到你要提交的仓库，再填 `commit-msg`。 |
-| `opencodeCommit.model` | *(空)* | `--model` 的值，例如 `google/gemini-3.8-flash`。留空用默认模型。 |
+| `opencodeCommit.model` | *(空)* | `--model` 的值，例如 `google/gemini-3.8-flash` 或者自定义模型 gemini-proxy/gemini-2.5-flash。留空用默认模型。 |
 | `opencodeCommit.instructions` | *(空)* | 附加到 prompt 的额外要求，例如「用中文」「subject 不超过 50 字符」。 |
 | `opencodeCommit.maxDiffChars` | `60000` | 发给模型的 diff 字符上限，超出截断。 |
 | `opencodeCommit.timeoutSeconds` | `120` | 超时时间。 |
